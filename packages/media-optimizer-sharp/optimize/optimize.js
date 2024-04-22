@@ -94,7 +94,7 @@ const schema = z.object({
 });
 
 async function main(args) {
-  const uri = `mongodb+srv://doadmin:m74wY2E6310Pg8DM@db-mongodb-fra1-68963-1379f789.mongo.ondigitalocean.com/admin?tls=true&authSource=admin`;
+  const uri = `mongodb+srv://doapps-3fc4bac8-b2e3-4bcc-af3d-414d01b7667b:grW5m63G02D47Ej8@db-mongodb-fra1-68963-1379f789.mongo.ondigitalocean.com/auctions?authSource=admin&tls=true`;
 
   // const uri = process.env.DATABASE_URL;
 
@@ -112,7 +112,7 @@ async function main(args) {
     console.log("Connected to the database");
 
     await client
-      .db("auctions")
+      .db()
       .collection("stocks")
       .findOneAndUpdate(
         { _id: "19c575a8-02a6-49a6-856f-43bf3a91470c" },
