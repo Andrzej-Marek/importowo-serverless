@@ -1,5 +1,8 @@
+const sharp = require("sharp");
 const main = async () => {
-  return { body: "Hello, World!" };
+  console.log("START");
+  const meta = sharp("input.jpg").metadata();
+  return { body: "Hello, World!", meta };
 };
 
 module.exports.main = main;
