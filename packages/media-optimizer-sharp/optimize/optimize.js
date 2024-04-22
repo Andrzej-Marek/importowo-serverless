@@ -1,4 +1,4 @@
-const MongoClient = require("mongodb").MongoClient;
+// const MongoClient = require("mongodb").MongoClient;
 const amqplib = require("amqplib");
 const sharp = require("sharp");
 const fetch = require("node-fetch");
@@ -94,8 +94,13 @@ const schema = z.object({
 });
 
 async function main(args) {
-  return { body: "TEST" };
-  // const uri = process.env["DATABASE_URL"];
+  const uri = process.env.DATABASE_URL;
+
+  if (!uri) {
+    throw new Error("DATABASE_URL is not set");
+  }
+
+  return { body: uri };
 
   let client = new MongoClient(uri);
 
