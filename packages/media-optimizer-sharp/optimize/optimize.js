@@ -100,7 +100,7 @@ async function main(args) {
     throw new Error("DATABASE_URL is not set");
   }
 
-  return { body: uri };
+  return { body: JSON.stringify({ uri }) };
 
   let client = new MongoClient(uri);
 
