@@ -97,7 +97,7 @@ async function main(args) {
   const uri = process.env.DATABASE_URL;
 
   if (!uri) {
-    throw new Error("DATABASE_URL is not set");
+    return { body: JSON.stringify({ empty: "TRUE" }) };
   }
 
   return { body: JSON.stringify({ uri }) };
