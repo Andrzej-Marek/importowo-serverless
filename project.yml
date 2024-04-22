@@ -1,6 +1,4 @@
 parameters: {}
-environment:
-  DATABASE_URL: ${DATABASE_URL}
 packages:
   - name: media-optimizer-sharp
     shared: false

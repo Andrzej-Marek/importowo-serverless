@@ -1,4 +1,3 @@
-const MongoClient = require("mongodb").MongoClient;
 const sharp = require("sharp");
 const fetch = require("node-fetch");
 const { S3Client, PutObjectCommand } = require("@aws-sdk/client-s3");
@@ -81,53 +80,25 @@ const schema = z.object({
 });
 
 async function main(args) {
-  console.log("start!");
   const uri = process.env["DATABASE_URL"];
-  console.log("uri", uri);
-  let client = new MongoClient(uri);
-
-  try {
-    console.log("Connecting to the database");
-    await client.connect();
-    console.log("Connected to the database");
-
-    await client
-      .db("auctions")
-      .collection("stocks")
-      .findOneAndUpdate(
-        { _id: "19c575a8-02a6-49a6-856f-43bf3a91470c" },
-        { $set: { test: "DONE" } }
-      );
-
-    return { body: "OK" };
-  } catch (error) {
-    console.error(e);
-
-    return {
-      body: {
-        error: "There was a problem adding the email address to the database.",
-      },
-      statusCode: 400,
-    };
-  } finally {
-    await client.close();
-  }
-
+  console.log("uri");
   // const meta = await sharp("sammy.png").metadata();
 
-  // const { urls, vin } = schema.parse(args);
+  const { urls, vin } = schema.parse(args);
 
-  // const files = await Promise.all(urls.map((url) => fetchImage(url)));
+  const files = await Promise.all(urls.map((url) => fetchImage(url)));
 
-  // const data = await Promise.all(
-  //   files.map((file, index) => optimizeImage(file, index))
-  // );
+  const data = await Promise.all(
+    files.map((file, index) => optimizeImage(file, index))
+  );
 
-  // const response = await Promise.all(
-  //   data.flat().map((el) => {
-  //     return uploadBuffer(el, `${vin}/${el.index}-${el.variant}.webp`);
-  //   })
-  // );
+  const response = await Promise.all(
+    data.flat().map((el) => {
+      return uploadBuffer(el, `${vin}/${el.index}-${el.variant}.webp`);
+    })
+  );
+
+  return { body: response };
 }
 
 module.exports.main = main;
