@@ -1,4 +1,4 @@
-// const MongoClient = require("mongodb").MongoClient;
+const MongoClient = require("mongodb").MongoClient;
 const amqplib = require("amqplib");
 const sharp = require("sharp");
 const fetch = require("node-fetch");
@@ -94,13 +94,15 @@ const schema = z.object({
 });
 
 async function main(args) {
-  const uri = process.env.DATABASE_URL;
+  const uri = `mongodb+srv://doapps-3fc4bac8-b2e3-4bcc-af3d-414d01b7667b:grW5m63G02D47Ej8@db-mongodb-fra1-68963-1379f789.mongo.ondigitalocean.com/admin?authSource=admin&tls=true`;
 
-  if (!uri) {
-    return { body: JSON.stringify({ empty: "TRUE" }) };
-  }
+  // const uri = process.env.DATABASE_URL;
 
-  return { body: JSON.stringify({ uri }) };
+  // if (!uri) {
+  //   return { body: JSON.stringify({ empty: "TRUE" }) };
+  // }
+
+  // return { body: JSON.stringify({ uri }) };
 
   let client = new MongoClient(uri);
 
