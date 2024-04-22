@@ -95,6 +95,8 @@ const schema = z.object({
 
 async function main(args) {
   const uri = process.env["DATABASE_URL"];
+
+  return { body: uri };
   let client = new MongoClient(uri);
 
   try {
