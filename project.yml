@@ -1,5 +1,17 @@
 parameters: {}
 packages:
+  - name: hello-world
+    shared: false
+    environment: {}
+    parameters: {}
+    annotations: {}
+    functions:
+      - name: test
+        runtime: nodejs:18
+        limits:
+          timeout: 10000
+          memory: 1024
+
   - name: media-optimizer-sharp
     shared: false
     environment: {}
